@@ -1,0 +1,75 @@
+{
+  "books": {
+    "dont-make-me-think": {
+      "source": "https://openlibrary.org/works/OL8578577W",
+      "cover": 554640,
+      "bytes": 27423
+    },
+    "laws-of-simplicity": {
+      "source": "https://openlibrary.org/works/OL1954555W",
+      "cover": 150391,
+      "bytes": 23842
+    },
+    "minimum": {
+      "source": "https://openlibrary.org",
+      "cover": 453538,
+      "bytes": 8645
+    },
+    "clean-code": {
+      "source": "https://openlibrary.org/works/OL17618370W",
+      "cover": 8065615,
+      "bytes": 29684
+    },
+    "clean-architecture": {
+      "source": "https://openlibrary.org/works/OL19809141W",
+      "cover": 8605114,
+      "bytes": 33361
+    },
+    "pragmatic-programmer": {
+      "source": "https://openlibrary.org/works/OL5748544W",
+      "cover": 10143650,
+      "bytes": 73929
+    },
+    "pai-rico": {
+      "source": "https://openlibrary.org",
+      "cover": 10483841,
+      "bytes": 55130
+    },
+    "design-everyday-things": {
+      "source": "https://openlibrary.org",
+      "cover": 8749094,
+      "bytes": 21765
+    },
+    "less-and-more": {
+      "source": "https://openlibrary.org",
+      "cover": 9332525,
+      "bytes": 17520
+    }
+  },
+  "history": {
+    "hamilton": {
+      "source": "https://commons.wikimedia.org/wiki/File:Margaret_Hamilton_-_restoration.jpg",
+      "license": "Public domain",
+      "artist": "Adam Cuerden",
+      "bytes": 993809
+    },
+    "eniac": {
+      "source": "https://commons.wikimedia.org/wiki/File:Glen_Beck_and_Betty_Snyder_program_the_ENIAC_in_building_328_at_the_Ballistic_Research_Laboratory.jpg",
+      "license": "Public domain",
+      "artist": "Unknown authorUnknown author",
+      "bytes": 623971
+    },
+    "first-bug": {
+      "source": "https://commons.wikimedia.org/wiki/File:First_Computer_Bug,_1947.jpg",
+      "license": "Public domain",
+      "artist": "Courtesy of the Naval Surface Warfare Center, Dahlgren, VA., 1988.",
+      "bytes": 519205
+    },
+    "earthrise": {
+      "source": "https://commons.wikimedia.org/wiki/File:NASA-Apollo8-Dec24-Earthrise.jpg",
+      "license": "Public domain",
+      "artist": "NASA/Bill Anders",
+      "bytes": 217652
+    }
+  }
+}
