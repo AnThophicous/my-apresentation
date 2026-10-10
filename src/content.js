@@ -28,39 +28,33 @@ export const skills = [
   { name: 'Música', detail: 'apaixonado', time: '∞', kind: 'wave' },
 ];
 
-export const keyboard = [
-  [
-    { l: 'React', w: 1.75, dark: true, d: 'Front-end com identidade.' },
-    { l: 'TypeScript', w: 2, d: 'Desde 2023.' },
-    { l: 'JavaScript', w: 2, d: 'Desde 2020, a primeira língua.' },
-    { l: 'Node.js', w: 1.5, d: 'O lado de trás da tela.' },
-    { l: 'Python', w: 1.5, d: 'Desde 2020, onde tudo começou.' },
-    { l: 'Java', w: 1.25, d: 'Aprendendo desde 2023.' },
+export const tools = {
+  eyebrow: '02 · Ferramentas',
+  title: 'Com o que eu construo.',
+  lede: ['Um cristal, vinte facetas.', 'Gire. Cada face guarda uma ferramenta.'],
+  items: [
+    { l: 'React', d: 'Front-end com identidade.' },
+    { l: 'TypeScript', d: 'Desde 2023.' },
+    { l: 'JavaScript', d: 'Desde 2020, a primeira língua.' },
+    { l: 'Python', d: 'Desde 2020, onde tudo começou.' },
+    { l: 'PyTorch', d: 'Onde nasce a família Koemi.' },
+    { l: 'CUDA', d: 'Frentes nativas no Koemi-4HCM.' },
+    { l: 'Machine Learning', d: 'Especialista há 1 ano. Koemi AI.' },
+    { l: 'WebGL', d: 'Aplicado em 2026, inclusive aqui.' },
+    { l: 'GLSL', d: 'Shaders, dithering, posterização.' },
+    { l: 'Three.js', d: 'Este cristal é feito com ele.' },
+    { l: 'Framer Motion', d: 'Movimento com intenção.' },
+    { l: 'SVG', d: '1 ano desenhando com código.' },
+    { l: 'Blender', d: '6 meses modelando em 3D.' },
+    { l: 'Node.js', d: 'O lado de trás da tela.' },
+    { l: 'WebSocket', d: 'Tempo real, desde 2020.' },
+    { l: 'HTML', d: 'A base de tudo.' },
+    { l: 'CSS', d: 'Onde o design vira real.' },
+    { l: 'Prompt Engineering', d: 'Estudado pela Harvard, de graça.' },
+    { l: 'Java', d: 'Aprendendo desde 2023.' },
+    { l: 'Discord bots', d: '2021, aprendendo na prática.' },
   ],
-  [
-    { l: 'HTML', w: 1, d: 'A base de tudo.' },
-    { l: 'CSS', w: 1, d: 'Onde o design vira real.' },
-    { l: 'SVG', w: 1, dark: true, d: '1 ano desenhando com código.' },
-    { l: 'WebGL', w: 1.5, d: 'Aplicado em 2026, inclusive aqui.' },
-    { l: 'GLSL', w: 1.25, d: 'Shaders, dithering, posterização.' },
-    { l: 'Three.js', w: 1.75, d: '3D de verdade, no navegador.' },
-    { l: 'PyTorch', w: 1.5, d: 'Onde nasce a família Koemi.' },
-    { l: 'CUDA', w: 1, d: 'Frentes nativas no Koemi-4HCM.' },
-  ],
-  [
-    { l: 'Framer Motion', w: 2.5, d: 'Movimento com intenção.' },
-    { l: 'Blender', w: 1.75, d: '6 meses modelando em 3D.' },
-    { l: 'ML', w: 1.25, dark: true, d: 'Especialista há 1 ano. Koemi AI.' },
-    { l: 'Prompt Eng.', w: 2.25, d: 'Estudado pela Harvard, de graça.' },
-    { l: 'WebSocket', w: 2.25, d: 'Tempo real, desde 2020.' },
-  ],
-  [
-    { l: 'Discord bots', w: 2.25, d: '2021, aprendendo na prática.' },
-    { l: 'space', w: 6, d: 'Espaço para o que ainda não existe.' },
-    { l: 'IA', w: 1.75, dark: true, d: 'Entusiasta desde o GPT-4.' },
-  ],
-];
-
+};
 export const why = {
   eyebrow: '03 · Por quê',
   question: 'Por que alguém passaria a madrugada inteira por causa de um único pixel?',

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { ambient } from '../lib/audio';
 
 const overrideListeners = new Set();
 export function setCursorLabel(label) {
@@ -48,6 +49,10 @@ export default function Cursor() {
       document.documentElement.classList.remove('has-cursor');
     };
   }, [x, y]);
+
+  useEffect(() => {
+    if (label || over) ambient.hover();
+  }, [label, over]);
 
   if (!enabled) return null;
 

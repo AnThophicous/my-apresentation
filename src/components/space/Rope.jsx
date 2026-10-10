@@ -183,7 +183,7 @@ export default function Rope({ vhPos }) {
             <text x="0" y="0">
               puxe
             </text>
-            <path d="M44 -8 l0 10 m-4 -4 l4 4 l4 -4" />
+            <path d="M54 -8 l0 10 m-4 -4 l4 4 l4 -4" />
           </g>
         </g>
         <text className={`scroll-hint ${pulled ? 'show' : ''}`} x={W / 2} y={H - 64} textAnchor="middle">

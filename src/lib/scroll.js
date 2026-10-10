@@ -9,10 +9,15 @@ const engine = {
   current: 0,
   target: 0,
   running: false,
+  locked: false,
   raf: 0,
   last: 0,
-  listeners: new Set(),
 };
+
+export function lockScroll(locked) {
+  engine.locked = locked;
+  document.documentElement.classList.toggle('is-locked', locked);
+}
 
 const vh = () => window.innerHeight / 100;
 const maxScroll = () => document.documentElement.scrollHeight - window.innerHeight;
@@ -43,6 +48,7 @@ function wake() {
 }
 
 function push(dy) {
+  if (engine.locked) return;
   const lead = MAX_LEAD_VH * vh();
   const ahead = clamp(engine.target + dy, engine.current - lead, engine.current + lead);
   engine.target = clampToPage(ahead);

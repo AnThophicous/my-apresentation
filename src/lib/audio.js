@@ -152,6 +152,22 @@ class Ambient {
     o.stop(t + 0.1);
   }
 
+  hover() {
+    if (!this.ctx || !this.on) return;
+    const t = this.ctx.currentTime;
+    const o = this.ctx.createOscillator();
+    o.type = 'sine';
+    o.frequency.setValueAtTime(2400, t);
+    o.frequency.exponentialRampToValueAtTime(1800, t + 0.04);
+    const g = this.ctx.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(0.035, t + 0.005);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.06);
+    o.connect(g).connect(this.dry);
+    o.start(t);
+    o.stop(t + 0.07);
+  }
+
   pluck(step = 0) {
     if (!this.ctx || !this.on) return;
     const ctx = this.ctx;
