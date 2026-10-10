@@ -234,7 +234,10 @@ export function createKeyboardScene(canvas, { rows, onHover, onPress, getProgres
 
   const pick = () => {
     ray.setFromCamera(ndc, camera);
-    const hit = ray.intersectObjects(keys.map((k) => k.cap), false)[0];
+    const hit = ray.intersectObjects(
+      keys.map((k) => k.cap),
+      false,
+    )[0];
     return hit ? hit.object.userData.key : -1;
   };
 
@@ -291,7 +294,9 @@ export function createKeyboardScene(canvas, { rows, onHover, onPress, getProgres
     if (!rippled && p > 0.32) {
       rippled = true;
       [...keys.keys()]
-        .sort((a, b) => keys[a].group.position.x + keys[a].group.position.z * 0.6 - (keys[b].group.position.x + keys[b].group.position.z * 0.6))
+        .sort(
+          (a, b) => keys[a].group.position.x + keys[a].group.position.z * 0.6 - (keys[b].group.position.x + keys[b].group.position.z * 0.6),
+        )
         .forEach((i, n) => setTimeout(() => press(i, 90), 300 + n * 45));
     }
     if (now > nextIdle && now - lastInteract > 2500 && p > 0.3 && p < 0.8) {

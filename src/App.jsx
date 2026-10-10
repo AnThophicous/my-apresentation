@@ -1,9 +1,10 @@
 import { useEffect, useRef } from 'react';
 import { useMotionValueEvent, useScroll } from 'framer-motion';
-import { initLenis, scrollToY } from './lib/scroll';
+import { initScroll, shiftScroll } from './lib/scroll';
 import { store } from './lib/store';
 import Cursor from './components/Cursor';
 import Hud from './components/Hud';
+import Scrollbar from './components/Scrollbar';
 import SpaceStage from './components/space/SpaceStage';
 import Skills from './components/Skills';
 import Keyboard from './components/Keyboard';
@@ -16,14 +17,14 @@ export default function App() {
   const jumping = useRef(false);
 
   useEffect(() => {
-    initLenis();
+    initScroll();
   }, []);
 
   useMotionValueEvent(scrollY, 'change', (y) => {
     const { loopY } = store.get();
     if (!jumping.current && Number.isFinite(loopY) && y >= loopY - 0.5) {
       jumping.current = true;
-      scrollToY(Math.max(0, y - loopY), true);
+      shiftScroll(-loopY);
       requestAnimationFrame(() => requestAnimationFrame(() => (jumping.current = false)));
     }
   });
@@ -32,6 +33,7 @@ export default function App() {
     <>
       <Cursor />
       <Hud />
+      <Scrollbar />
       <main>
         <SpaceStage />
         <Skills />

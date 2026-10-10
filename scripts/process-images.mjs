@@ -30,4 +30,3 @@ for (const dir of ['books', 'history']) {
 }
 
 await writeFile(join(root, 'out', 'manifest.json'), JSON.stringify(manifest, null, 2));
-

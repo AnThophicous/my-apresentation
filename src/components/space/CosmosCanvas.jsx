@@ -112,7 +112,7 @@ export default function CosmosCanvas({ vhPos }) {
       const zoom = phase(v, SP.zoom, (t) => Math.pow(t, 1.5));
       const reveal = phase(v, SP.reveal, easeInOutCubic);
       const fall = phase(v, SP.fall);
-      const dither = 0.4 - 0.2 * phase(v, SP.zoom) + 0.7 * phase(v, SP.reveal);
+      const dither = 0.4 - 0.2 * phase(v, SP.zoom) + 0.5 * phase(v, SP.reveal);
 
       gl.uniform2f(u.uRes, w, h);
       gl.uniform1f(u.uTime, (now - t0) / 1000);

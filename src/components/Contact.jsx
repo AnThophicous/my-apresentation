@@ -123,7 +123,13 @@ export default function Contact() {
               </motion.div>
             ))}
             {typing && (
-              <motion.div key="typing" className="bubble bubble--me" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.8 }}>
+              <motion.div
+                key="typing"
+                className="bubble bubble--me"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+              >
                 <Typing />
               </motion.div>
             )}
@@ -153,8 +159,20 @@ export default function Contact() {
 
         <AnimatePresence>
           {topic && !typing && msgs.length >= 3 && (
-            <motion.form className="composer" onSubmit={send} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={spring}>
-              <input className="field field--name" placeholder="seu nome (opcional)" value={name} onChange={(e) => setName(e.target.value)} aria-label="Seu nome" />
+            <motion.form
+              className="composer"
+              onSubmit={send}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={spring}
+            >
+              <input
+                className="field field--name"
+                placeholder="seu nome (opcional)"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                aria-label="Seu nome"
+              />
               <div className="composer-row">
                 <textarea
                   className="field"
@@ -185,7 +203,12 @@ export default function Contact() {
         </a>
         <Magnetic as="button" className="pill" onClick={copy} data-cursor="copiar">
           <AnimatePresence mode="wait">
-            <motion.span key={copied ? 'ok' : 'copy'} initial={{ y: 10, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -10, opacity: 0 }}>
+            <motion.span
+              key={copied ? 'ok' : 'copy'}
+              initial={{ y: 10, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -10, opacity: 0 }}
+            >
               {copied ? 'copiado ✓' : 'copiar e-mail'}
             </motion.span>
           </AnimatePresence>

@@ -144,12 +144,7 @@ export function CountUp({ value, prefix = '+', duration = 1.6 }) {
 export function RevealLines({ lines, className = '', delay = 0, as = 'div' }) {
   const Comp = motion[as];
   return (
-    <Comp
-      className={`reveal ${className}`}
-      initial="hide"
-      whileInView="show"
-      viewport={{ once: true, margin: '-12% 0px' }}
-    >
+    <Comp className={`reveal ${className}`} initial="hide" whileInView="show" viewport={{ once: true, margin: '-12% 0px' }}>
       {lines.map((l, i) => (
         <span className="rl-mask" key={i}>
           <motion.span

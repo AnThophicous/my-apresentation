@@ -1,13 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { ropeGeometry, useStore } from '../../lib/store';
 import { clamp, easeInOutCubic, easeOutBack, easeOutCubic, lerp, phase } from '../../lib/math';
-import { scrollToY, getLenis } from '../../lib/scroll';
+import { getScrollTarget, scrollToY } from '../../lib/scroll';
 import { ambient } from '../../lib/audio';
 import { SP } from './phases';
 
 export default function Rope({ vhPos }) {
   const W = useStore((s) => s.W);
   const H = useStore((s) => s.H);
+  const touch = useStore((s) => s.touch);
   const g = ropeGeometry(W, H);
   const refs = {
     layer: useRef(null),
@@ -23,7 +25,9 @@ export default function Rope({ vhPos }) {
   };
   const [idle, setIdle] = useState(false);
   const [pulled, setPulled] = useState(false);
+  const [notice, setNotice] = useState(0);
   const drag = useRef(null);
+  const live = useRef({ pull: 0, kick: 0 });
 
   useEffect(() => {
     let raf = 0;
@@ -54,6 +58,7 @@ export default function Rope({ vhPos }) {
       layer.style.visibility = 'visible';
 
       const pull = phase(v, SP.pull, easeInOutCubic);
+      live.current.pull = pull;
       const rel = phase(v, SP.release);
       const ret = phase(v, SP.retract, easeInOutCubic);
 
@@ -64,6 +69,8 @@ export default function Rope({ vhPos }) {
 
       const dragX = drag.current ? drag.current.dx * 0.35 : 0;
       const target = clamp((mouseX - W / 2) * 0.035, -26, 26) * (1 - rel) + dragX;
+      swayV += live.current.kick;
+      live.current.kick = 0;
       swayV += (target - sway) * 90 * dt - swayV * 9 * dt + clamp(vel, -400, 400) * 0.02 * Math.sin(now / 160);
       sway += swayV * dt;
       wave += (clamp(Math.abs(vel) / 120, 0, 1) - wave) * 0.08;
@@ -106,7 +113,7 @@ export default function Rope({ vhPos }) {
       }
       refs.hit.current.setAttribute('cx', hx.toFixed(1));
       refs.hit.current.setAttribute('cy', hy.toFixed(1));
-      refs.hit.current.style.pointerEvents = pull < 0.98 ? 'auto' : 'none';
+      refs.hit.current.style.pointerEvents = ret < 0.95 ? 'auto' : 'none';
       if (refs.hint.current) {
         refs.hint.current.setAttribute('transform', `translate(${(hx + 26).toFixed(1)} ${(hy + 5).toFixed(1)})`);
       }
@@ -130,56 +137,88 @@ export default function Rope({ vhPos }) {
     };
   }, [vhPos]);
 
+  useEffect(() => {
+    if (!notice) return;
+    const t = setTimeout(() => setNotice(0), 3200);
+    return () => clearTimeout(t);
+  }, [notice]);
+
   const onDown = (e) => {
+    if (live.current.pull >= 0.98) {
+      live.current.kick = (Math.random() > 0.5 ? 1 : -1) * 260;
+      setNotice((n) => n + 1);
+      return;
+    }
     setPulled(true);
     e.currentTarget.setPointerCapture(e.pointerId);
-    const lenis = getLenis();
-    drag.current = { y0: e.clientY, x0: e.clientX, dx: 0, s0: lenis ? lenis.targetScroll : window.scrollY };
+    drag.current = { y0: e.clientY, x0: e.clientX, dx: 0, s0: getScrollTarget() };
   };
   const onDrag = (e) => {
     if (!drag.current) return;
     const dy = e.clientY - drag.current.y0;
     drag.current.dx = e.clientX - drag.current.x0;
     const ratio = ((SP.pull[1] - SP.pull[0]) * (H / 100)) / (H * 0.84 - g.L);
-    scrollToY(Math.max(0, drag.current.s0 + dy * ratio), false);
+    scrollToY(Math.max(0, drag.current.s0 + dy * ratio));
   };
   const onUp = () => (drag.current = null);
 
   return (
-    <svg ref={refs.layer} className="rope-layer" width={W} height={H} viewBox={`0 0 ${W} ${H}`}>
-      <defs>
-        <clipPath id="curtain-clip">
-          <path ref={refs.clip} />
-        </clipPath>
-      </defs>
-      <rect ref={refs.paper} width={W} height={H} fill="#fff" />
-      <path ref={refs.curtain} fill="#000" />
-      <path ref={refs.ropeB} className="rope" stroke="#000" strokeWidth={g.width} />
-      <circle ref={refs.handleB} r={g.handleR} fill="#000" />
-      <g clipPath="url(#curtain-clip)">
-        <path ref={refs.ropeW} className="rope" stroke="#fff" strokeWidth={g.width} />
-      </g>
-      <circle ref={refs.handleW} r={g.handleR} fill="#fff" clipPath="url(#curtain-clip)" />
-      <g ref={refs.hint}>
-        <g className={`rope-hint ${idle ? 'show' : ''}`}>
-          <text x="0" y="0">puxe</text>
-          <path d="M44 -8 l0 10 m-4 -4 l4 4 l4 -4" />
+    <>
+      <svg ref={refs.layer} className="rope-layer" width={W} height={H} viewBox={`0 0 ${W} ${H}`}>
+        <defs>
+          <clipPath id="curtain-clip">
+            <path ref={refs.clip} />
+          </clipPath>
+        </defs>
+        <rect ref={refs.paper} width={W} height={H} fill="#fff" />
+        <path ref={refs.curtain} fill="#000" />
+        <path ref={refs.ropeB} className="rope" stroke="#000" strokeWidth={g.width} />
+        <circle ref={refs.handleB} r={g.handleR} fill="#000" />
+        <g clipPath="url(#curtain-clip)">
+          <path ref={refs.ropeW} className="rope" stroke="#fff" strokeWidth={g.width} />
         </g>
-      </g>
-      <text className={`scroll-hint ${pulled ? 'show' : ''}`} x={W / 2} y={H - 30} textAnchor="middle">
-        Use o scroll do mouse para interagir
-      </text>
-      <circle
-        ref={refs.hit}
-        r={34}
-        fill="transparent"
-        className="rope-hit"
-        data-cursor="puxe"
-        onPointerDown={onDown}
-        onPointerMove={onDrag}
-        onPointerUp={onUp}
-        onPointerCancel={onUp}
-      />
-    </svg>
+        <circle ref={refs.handleW} r={g.handleR} fill="#fff" clipPath="url(#curtain-clip)" />
+        <g ref={refs.hint}>
+          <g className={`rope-hint ${idle ? 'show' : ''}`}>
+            <text x="0" y="0">
+              puxe
+            </text>
+            <path d="M44 -8 l0 10 m-4 -4 l4 4 l4 -4" />
+          </g>
+        </g>
+        <text className={`scroll-hint ${pulled ? 'show' : ''}`} x={W / 2} y={H - 64} textAnchor="middle">
+          {touch ? 'Deslize para baixo para interagir' : 'Use o scroll do mouse para interagir'}
+        </text>
+        <circle
+          ref={refs.hit}
+          r={34}
+          fill="transparent"
+          className="rope-hit"
+          data-cursor="puxe"
+          onPointerDown={onDown}
+          onPointerMove={onDrag}
+          onPointerUp={onUp}
+          onPointerCancel={onUp}
+        />
+      </svg>
+      <AnimatePresence>
+        {notice > 0 && (
+          <motion.div
+            key={notice}
+            className="rope-notice"
+            role="status"
+            initial={{ opacity: 0, y: 24, scale: 0.92, filter: 'blur(8px)' }}
+            animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, y: -12, filter: 'blur(8px)' }}
+            transition={{ type: 'spring', stiffness: 260, damping: 22 }}
+          >
+            <span>A corda já fez a parte dela.</span>
+            <strong>
+              Agora é com o {touch ? 'seu dedo' : 'scroll do mouse'} <i aria-hidden>↓</i>
+            </strong>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

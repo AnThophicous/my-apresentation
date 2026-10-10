@@ -131,53 +131,68 @@ function Stage({ s, i, n, headRef }) {
 }
 
 function Projects() {
+  const card = useRef(null);
+  const { org, items } = projects;
+  const spotlight = (e) => {
+    const r = card.current.getBoundingClientRect();
+    card.current.style.setProperty('--gx', `${e.clientX - r.left}px`);
+    card.current.style.setProperty('--gy', `${e.clientY - r.top}px`);
+  };
   return (
     <div className="projects">
       <RevealLines className="projects-title" lines={projects.title} />
-      <div className="project-grid">
-        {projects.items.map((p, i) => (
-          <TiltCard key={p.name} p={p} i={i} />
-        ))}
-      </div>
+      <motion.div
+        ref={card}
+        className="org"
+        onPointerMove={spotlight}
+        initial={{ opacity: 0, y: 60 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-10% 0px' }}
+        transition={{ duration: 1, ease }}
+      >
+        <header className="org-head">
+          <span className="org-lede">{org.lede}</span>
+          <a className="org-name" href={org.url} target="_blank" rel="noreferrer" data-cursor="abrir">
+            {org.name}
+            <span aria-hidden>↗</span>
+          </a>
+          <p className="org-desc">{org.desc}</p>
+        </header>
+        <ol className="models">
+          {items.map((m, i) => (
+            <motion.li
+              key={m.name}
+              initial={{ opacity: 0, x: -24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease, delay: 0.2 + i * 0.08 }}
+            >
+              <a
+                className={`model ${m.featured ? 'is-featured' : ''}`}
+                href={m.url}
+                target="_blank"
+                rel="noreferrer"
+                data-cursor="ver código"
+              >
+                <span className="model-gen">{m.gen}</span>
+                <span className="model-main">
+                  <strong className="model-name">{m.name}</strong>
+                  <span className="model-desc">{m.desc}</span>
+                </span>
+                <span className="model-lang">{m.lang}</span>
+                <span className="model-arrow" aria-hidden>
+                  ↗
+                </span>
+              </a>
+            </motion.li>
+          ))}
+        </ol>
+      </motion.div>
       <Magnetic as="a" className="gh-link" href={site.github} target="_blank" rel="noreferrer" strength={0.2} data-cursor="abrir">
         <Scramble text={site.githubLabel} />
         <span aria-hidden>↗</span>
       </Magnetic>
     </div>
-  );
-}
-
-function TiltCard({ p, i }) {
-  const ref = useRef(null);
-  const onMove = (e) => {
-    const r = ref.current.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width - 0.5;
-    const y = (e.clientY - r.top) / r.height - 0.5;
-    ref.current.style.setProperty('--rx', `${(-y * 10).toFixed(2)}deg`);
-    ref.current.style.setProperty('--ry', `${(x * 12).toFixed(2)}deg`);
-    ref.current.style.setProperty('--gx', `${(x + 0.5) * 100}%`);
-    ref.current.style.setProperty('--gy', `${(y + 0.5) * 100}%`);
-  };
-  const reset = () => {
-    ref.current.style.setProperty('--rx', '0deg');
-    ref.current.style.setProperty('--ry', '0deg');
-  };
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.9, ease, delay: i * 0.1 }}
-    >
-      <a ref={ref} className="pcard" href={p.url} target="_blank" rel="noreferrer" onPointerMove={onMove} onPointerLeave={reset} data-cursor="ver código">
-        <span className="pcard-lang">{p.lang}</span>
-        <strong className="pcard-name">{p.name}</strong>
-        <span className="pcard-desc">{p.desc}</span>
-        <span className="pcard-arrow" aria-hidden>
-          ↗
-        </span>
-      </a>
-    </motion.div>
   );
 }
 
@@ -332,19 +347,19 @@ export default function Timeline() {
       </div>
 
       <div className="ending">
-          <RevealLines className="end-q" lines={[ending.question]} />
-          <motion.p
-            className="end-a"
-            initial={{ opacity: 0, scale: 0.6 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: '-30% 0px' }}
-            transition={{ type: 'spring', stiffness: 200, damping: 12 }}
-          >
-            {ending.answer}
-          </motion.p>
-          <RevealLines className="end-note" lines={ending.note} />
+        <RevealLines className="end-q" lines={[ending.question]} />
+        <motion.p
+          className="end-a"
+          initial={{ opacity: 0, scale: 0.6 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, margin: '-30% 0px' }}
+          transition={{ type: 'spring', stiffness: 200, damping: 12 }}
+        >
+          {ending.answer}
+        </motion.p>
+        <RevealLines className="end-note" lines={ending.note} />
       </div>
-            <div ref={replicaRef} className="replica" style={{ height: H }} />
+      <div ref={replicaRef} className="replica" style={{ height: H }} />
       <div className="replica-tail" />
     </section>
   );

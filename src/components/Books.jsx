@@ -28,7 +28,13 @@ function Book({ b, i }) {
     >
       <motion.div className="book-3d" style={{ rotateY: ry, width: w }}>
         <div className="book-front">
-          <DitherImage src={`${import.meta.env.BASE_URL}img/out/${b.slug}.webp`} alt={`${b.title}, ${b.author}`} ratio={b.ratio} dot={1.5} lens={70} />
+          <DitherImage
+            src={`${import.meta.env.BASE_URL}img/out/${b.slug}.webp`}
+            alt={`${b.title}, ${b.author}`}
+            ratio={b.ratio}
+            dot={1.5}
+            lens={70}
+          />
         </div>
         <div className="book-spine">
           <span>{b.title}</span>

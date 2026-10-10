@@ -69,7 +69,13 @@ export default function Keyboard() {
                 <span>{active.d}</span>
               </motion.div>
             ) : (
-              <motion.div key="hint" className="keys-info keys-info--hint" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <motion.div
+                key="hint"
+                className="keys-info keys-info--hint"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
                 <span>passe o mouse ou toque nas teclas</span>
               </motion.div>
             )}

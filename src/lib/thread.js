@@ -57,7 +57,7 @@ export function threadAt(t, y) {
 
 export function buildYarn(count = 720, seed = 4) {
   let s = seed;
-  const rnd = () => ((s = (s * 16807) % 2147483647) / 2147483647);
+  const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
   const pts = [];
   let p = [0, 0, 1];
   let t = [1, 0, 0];
