@@ -8,20 +8,26 @@ const spring = { type: 'spring', stiffness: 260, damping: 24 };
 function BouncyTitle({ text }) {
   return (
     <h2 className="contact-title" aria-label={text}>
-      {text.split('').map((ch, i) => (
-        <motion.span
-          key={i}
-          className="ct-l"
-          aria-hidden
-          initial={{ y: '100%', opacity: 0 }}
-          whileInView={{ y: '0%', opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ ...spring, delay: i * 0.03 }}
-          whileHover={{ y: -18, transition: { type: 'spring', stiffness: 500, damping: 9 } }}
-        >
-          {ch === ' ' ? ' ' : ch}
-        </motion.span>
-      ))}
+      {text.split(' ').map((word, wi, words) => {
+        const offset = words.slice(0, wi).join(' ').length + (wi ? 1 : 0);
+        return (
+          <span className="ct-w" key={wi} aria-hidden>
+            {word.split('').map((ch, i) => (
+              <motion.span
+                key={i}
+                className="ct-l"
+                initial={{ y: '100%', opacity: 0 }}
+                whileInView={{ y: '0%', opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ ...spring, delay: (offset + i) * 0.03 }}
+                whileHover={{ y: -18, transition: { type: 'spring', stiffness: 500, damping: 9 } }}
+              >
+                {ch}
+              </motion.span>
+            ))}
+          </span>
+        );
+      })}
     </h2>
   );
 }

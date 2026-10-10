@@ -202,16 +202,40 @@ export const projects = {
   title: ['O que eu construo', 'quando ninguém está olhando.'],
   items: [
     {
-      name: 'Avila-Webview',
-      lang: 'C#',
-      desc: 'Motor de apps desktop para Windows com HTML, CSS e JavaScript, sobre WebView2, com empacotamento seguro em EXE.',
-      url: 'https://github.com/AnThophicous/Avila-Webview',
+      name: 'plif',
+      lang: 'TypeScript',
+      desc: 'Agente de código nativo em containers para o terminal. Traga o seu modelo e veja exatamente o que ele pode fazer.',
+      url: 'https://github.com/AnThophicous/plif',
     },
     {
-      name: 'kapsel',
-      lang: 'C++',
-      desc: 'Cofre local de segredos, motor de políticas e servidor MCP para agentes de IA.',
-      url: 'https://github.com/AnThophicous/kapsel',
+      name: 'Slate',
+      lang: 'Rust · TypeScript',
+      desc: 'Toolkit modular de interfaces de terminal em Rust, com suporte nativo a Node.js, TypeScript e TSX, teclado e mouse.',
+      url: 'https://github.com/AnThophicous/Slate',
+    },
+    {
+      name: 'RustFox',
+      lang: 'C',
+      desc: 'Núcleo de inferência para hardware fraco: disco, RAM e GPU como uma só hierarquia de memória. C puro, 1-bit primeiro.',
+      url: 'https://github.com/AnThophicous/RustFox',
+    },
+    {
+      name: 'PixelForge',
+      lang: 'Kotlin',
+      desc: 'Upscaler serial de imagens e vídeos leves para Android.',
+      url: 'https://github.com/AnThophicous/PixelForge',
+    },
+    {
+      name: 'markee',
+      lang: 'React Native',
+      desc: 'Caderno infinito no bolso: notas local-first, grupos de estudo e conversas cifradas.',
+      url: 'https://github.com/AnThophicous/markee',
+    },
+    {
+      name: 'Caeluna',
+      lang: 'Rust',
+      desc: 'Sua experiência de desktop pessoal para deixar o Linux melhor.',
+      url: 'https://github.com/AnThophicous/Caeluna',
     },
   ],
 };

@@ -1,4 +1,3 @@
-﻿// Crops, trims and optimizes the downloaded imagery into public/img/out/*.webp
 import sharp from 'sharp';
 import { mkdir, readdir, writeFile } from 'node:fs/promises';
 import { dirname, join, parse } from 'node:path';

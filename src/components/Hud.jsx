@@ -60,11 +60,10 @@ export default function Hud() {
 
   return (
     <motion.div
-      className="hud"
+      className={`hud ${visible ? 'is-on' : ''}`}
       initial={false}
       animate={{ opacity: visible ? 1 : 0 }}
       transition={{ duration: 0.6 }}
-      style={{ pointerEvents: visible ? 'auto' : 'none' }}
     >
       <div className="hud-tl">
         <span className="hud-name">{site.short}</span>

@@ -148,6 +148,9 @@ button {
   display: flex;
   align-items: center;
   gap: 12px;
+  pointer-events: none;
+}
+.hud.is-on > div {
   pointer-events: auto;
 }
 .hud-tl {
@@ -606,6 +609,20 @@ button {
 .mw {
   display: inline-block;
   position: relative;
+  margin-right: 0.26em;
+}
+.scroll-hint {
+  font: 500 10px 'Montserrat', sans-serif;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  fill: #fff;
+  mix-blend-mode: difference;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.8s var(--ease);
+}
+.scroll-hint.show {
+  opacity: 0.6;
 }
 .mw--em {
   font-weight: 700;
@@ -1237,6 +1254,13 @@ button {
   line-height: 0.92;
   overflow: hidden;
   padding-bottom: 0.06em;
+}
+.contact-title {
+  column-gap: 0.25em;
+}
+.ct-w {
+  display: inline-flex;
+  white-space: nowrap;
 }
 .ct-l {
   display: inline-block;

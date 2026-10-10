@@ -22,6 +22,7 @@ export default function Rope({ vhPos }) {
     hint: useRef(null),
   };
   const [idle, setIdle] = useState(false);
+  const [pulled, setPulled] = useState(false);
   const drag = useRef(null);
 
   useEffect(() => {
@@ -118,11 +119,10 @@ export default function Rope({ vhPos }) {
   }, [vhPos, W, H, g.x, g.L, g.handleR]);
 
   useEffect(() => {
-    let t = setTimeout(() => setIdle(true), 2600);
+    const t = setTimeout(() => setIdle(vhPos.get() < 2), 700);
     const unsub = vhPos.on('change', (v) => {
-      setIdle(false);
-      clearTimeout(t);
-      if (v < 1) t = setTimeout(() => setIdle(true), 2600);
+      setIdle(v < 2);
+      setPulled(v >= 2 && v < SP.retract[1]);
     });
     return () => {
       clearTimeout(t);
@@ -131,6 +131,7 @@ export default function Rope({ vhPos }) {
   }, [vhPos]);
 
   const onDown = (e) => {
+    setPulled(true);
     e.currentTarget.setPointerCapture(e.pointerId);
     const lenis = getLenis();
     drag.current = { y0: e.clientY, x0: e.clientX, dx: 0, s0: lenis ? lenis.targetScroll : window.scrollY };
@@ -165,6 +166,9 @@ export default function Rope({ vhPos }) {
           <path d="M44 -8 l0 10 m-4 -4 l4 4 l4 -4" />
         </g>
       </g>
+      <text className={`scroll-hint ${pulled ? 'show' : ''}`} x={W / 2} y={H - 30} textAnchor="middle">
+        Use o scroll do mouse para interagir
+      </text>
       <circle
         ref={refs.hit}
         r={34}
