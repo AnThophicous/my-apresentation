@@ -1,0 +1,3 @@
+.layer--ocean {
+  transition: color 0.8s var(--ease-out);
+}

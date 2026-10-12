@@ -1,0 +1,34 @@
+.ending__finale {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--gutter) + 72px);
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+  padding: 0 var(--gutter);
+  text-align: center;
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+  transition:
+    opacity 0.9s var(--ease-out),
+    transform 1.1s var(--ease-out);
+}
+
+.ending__finale.is-visible {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.ending__signature,
+.ending__credits {
+  margin: 0;
+}
+
+.ending__credits {
+  max-width: 44em;
+  font-size: 12px;
+  line-height: 1.6;
+  opacity: 0.55;
+}

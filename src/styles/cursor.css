@@ -1,0 +1,88 @@
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 60;
+  pointer-events: none;
+  mix-blend-mode: difference;
+  color: var(--white);
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-out);
+}
+
+html.has-cursor .cursor.is-visible {
+  opacity: 1;
+}
+
+html.has-cursor,
+html.has-cursor * {
+  cursor: none !important;
+}
+
+.cursor__ring,
+.cursor__dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+.cursor__ring {
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border: 1px solid currentColor;
+  transition:
+    width 0.5s var(--ease-out),
+    height 0.5s var(--ease-out),
+    margin 0.5s var(--ease-out),
+    background-color 0.4s var(--ease-out);
+}
+
+.cursor.is-labelled .cursor__ring {
+  width: 92px;
+  height: 92px;
+  margin: -46px 0 0 -46px;
+  background: var(--white);
+}
+
+.cursor.is-pressed .cursor__ring {
+  width: 28px;
+  height: 28px;
+  margin: -14px 0 0 -14px;
+}
+
+.cursor__dot {
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  background: currentColor;
+  transition: opacity 0.3s;
+}
+
+.cursor.is-labelled .cursor__dot {
+  opacity: 0;
+}
+
+.cursor__label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: var(--black);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transform: translate(-50%, -50%) scale(0.6);
+  opacity: 0;
+  transition:
+    opacity 0.3s var(--ease-out),
+    transform 0.5s var(--ease-out);
+  will-change: transform;
+}
+
+.cursor.is-labelled .cursor__label {
+  opacity: 1;
+}

@@ -1,0 +1,194 @@
+.layer--welcome {
+  color: var(--black);
+}
+
+.welcome__sound {
+  position: absolute;
+  top: calc(50% + clamp(36px, 7vh, 72px));
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transform: translateX(-50%);
+  pointer-events: auto;
+  opacity: 0;
+  transition: opacity 0.8s var(--ease-out);
+}
+
+.welcome__sound.is-visible {
+  opacity: 1;
+}
+
+.welcome__sound.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.welcome__sound .caption {
+  margin-right: 6px;
+  opacity: 0.6;
+}
+
+.pill {
+  height: 32px;
+  padding: 0 16px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-size: var(--fs-caption);
+  font-weight: 500;
+  letter-spacing: var(--tracking-caption);
+  text-transform: uppercase;
+  transition:
+    background-color 0.35s var(--ease-out),
+    color 0.35s var(--ease-out);
+}
+
+.pill:hover,
+.pill:focus-visible {
+  background: var(--black);
+  color: var(--white);
+}
+
+.welcome__hint {
+  position: absolute;
+  bottom: calc(var(--gutter) + 40px);
+  left: 50%;
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  transform: translateX(-50%);
+  transition: opacity 0.6s var(--ease-out);
+}
+
+.welcome__hint-line {
+  display: block;
+  width: 1px;
+  height: 44px;
+  background: currentColor;
+  transform-origin: top;
+  animation: hint-line 2.2s var(--ease-in-out) infinite;
+}
+
+@keyframes hint-line {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  50% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  51% {
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+
+.dive {
+  --size: clamp(112px, 10.5vw, 150px);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--size);
+  height: var(--size);
+  margin: calc(var(--size) / -2) 0 0 calc(var(--size) / -2);
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.6);
+  transition:
+    opacity 0.7s var(--ease-out),
+    transform 0.9s var(--ease-spring);
+}
+
+.dive.is-visible {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.dive__ring {
+  position: absolute;
+  inset: -34%;
+  width: 168%;
+  height: 168%;
+  overflow: visible;
+  animation: dive-orbit 22s linear infinite;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  fill: currentColor;
+}
+
+@keyframes dive-orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.dive__core {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  background: var(--white);
+  transition:
+    background-color 0.5s var(--ease-out),
+    color 0.5s var(--ease-out),
+    scale 0.6s var(--ease-spring);
+}
+
+.dive__label {
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.dive:hover .dive__core,
+.dive:focus-visible .dive__core {
+  background: var(--black);
+  color: var(--white);
+  scale: 1.08;
+}
+
+.dive.is-nudged .dive__core {
+  animation: dive-nudge 0.7s var(--ease-out);
+}
+
+@keyframes dive-nudge {
+  20% {
+    scale: 1.12;
+  }
+  45% {
+    scale: 0.96;
+  }
+  70% {
+    scale: 1.04;
+  }
+}
+
+.dive.is-released {
+  pointer-events: none;
+}
+
+.dive.is-released .dive__ring {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.dive.is-released .dive__core {
+  background: var(--black);
+  scale: 0.06;
+  transition:
+    scale 0.5s var(--ease-in-out),
+    background-color 0.2s;
+}
+
+.dive.is-released .dive__label {
+  opacity: 0;
+}

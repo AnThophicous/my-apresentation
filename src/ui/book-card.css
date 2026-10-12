@@ -1,0 +1,137 @@
+.book-card {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: grid;
+  place-items: center;
+  padding: var(--gutter);
+  color: var(--white);
+}
+
+.book-card[hidden] {
+  display: none;
+}
+
+.book-card__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(14px);
+  opacity: 0;
+  transition: opacity 0.6s var(--ease-out);
+}
+
+.book-card.is-open .book-card__backdrop {
+  opacity: 1;
+}
+
+.book-card__panel {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 72px);
+  align-items: center;
+  width: min(1080px, 100%);
+  opacity: 0;
+  transform: translateY(40px) scale(0.98);
+  transition:
+    opacity 0.7s var(--ease-out),
+    transform 0.9s var(--ease-out);
+}
+
+.book-card.is-open .book-card__panel {
+  opacity: 1;
+  transform: none;
+}
+
+.book-card__cover {
+  margin: 0;
+  perspective: 1200px;
+}
+
+.book-card__cover img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 72vh;
+  object-fit: contain;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.55);
+  transform: rotateY(8deg) rotateX(2deg);
+  transform-origin: left center;
+  transition: transform 1.2s var(--ease-out);
+}
+
+.book-card.is-open .book-card__cover img {
+  transform: rotateY(-6deg);
+}
+
+.book-card__body {
+  display: grid;
+  gap: 18px;
+}
+
+.book-card__index,
+.book-card__meta {
+  opacity: 0.55;
+}
+
+.book-card__title {
+  margin: 0;
+  font-size: clamp(34px, 4.2vw, 64px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.book-card__author {
+  margin: 0;
+  font-size: var(--fs-body);
+  opacity: 0.7;
+}
+
+.book-card__takeaway {
+  margin: 12px 0 6px;
+  font-size: clamp(22px, 2.2vw, 32px);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+
+.book-card__takeaway::before {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 1px;
+  margin-bottom: 20px;
+  background: currentColor;
+}
+
+.book-card__close {
+  position: absolute;
+  top: calc(var(--gutter) * -0.5);
+  right: 0;
+  pointer-events: auto;
+}
+
+.book-card__close:hover {
+  background: var(--white);
+  color: var(--black);
+}
+
+@media (max-width: 760px) {
+  .book-card__panel {
+    grid-template-columns: 1fr;
+    align-content: start;
+    max-height: 100%;
+    overflow-y: auto;
+  }
+
+  .book-card__cover img {
+    max-height: 42vh;
+    margin: 0 auto;
+  }
+
+  .book-card__close {
+    position: static;
+    justify-self: start;
+  }
+}

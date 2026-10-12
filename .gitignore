@@ -1,3 +1,8 @@
 node_modules
 dist
+*.local
 .DS_Store
+lab/
+public/models/Xbot.glb
+public/models/Michelle.glb
+public/models/readyplayer.me.glb

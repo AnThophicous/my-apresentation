@@ -1,0 +1,101 @@
+.stars__label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding-left: 18px;
+  margin-top: -0.7em;
+  white-space: nowrap;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.stars__card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: min(320px, 72vw);
+  opacity: 0;
+  transition: opacity 0.35s var(--ease-out);
+  will-change: transform;
+}
+
+.stars__card.is-visible {
+  opacity: 1;
+}
+
+.stars__card > * {
+  margin: 0;
+  text-shadow:
+    0 0 4px #000,
+    0 0 18px #000,
+    0 0 36px #000;
+  position: relative;
+  left: 26px;
+  top: -14px;
+}
+
+.stars__card.is-flipped > * {
+  left: auto;
+  right: calc(100% + 26px);
+  text-align: right;
+}
+
+.stars__card.is-flipped {
+  width: 0;
+}
+
+.stars__card.is-flipped > * {
+  position: absolute;
+  width: min(320px, 72vw);
+}
+
+.stars__card.is-flipped .stars__card-caption {
+  top: -14px;
+}
+
+.stars__card.is-flipped .stars__card-title {
+  top: 6px;
+}
+
+.stars__card.is-flipped .stars__card-line {
+  top: 40px;
+}
+
+.stars__card-caption {
+  opacity: 0.6;
+}
+
+.stars__card-title {
+  margin-top: 8px !important;
+  font-size: clamp(19px, 1.6vw, 24px);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  font-weight: 500;
+}
+
+.stars__card-line {
+  margin-top: 8px !important;
+  font-size: var(--fs-body);
+  line-height: 1.45;
+  opacity: 0.66;
+}
+
+.stars__constellation {
+  position: absolute;
+  top: calc(var(--gutter) + 64px);
+  left: 0;
+  right: 0;
+  margin: 0;
+  text-align: center;
+  opacity: 0;
+}
+
+.stars__hint {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--gutter) + 64px);
+  margin: 0;
+  text-align: center;
+  opacity: 0;
+}

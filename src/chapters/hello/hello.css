@@ -1,0 +1,79 @@
+.magnify {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.magnify__row {
+  position: relative;
+  margin: 0;
+  white-space: pre;
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+}
+
+.magnify__row[data-size='hero'] {
+  font-size: var(--fs-display);
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+.magnify__row[data-size='lead'] {
+  font-size: clamp(30px, 4.3vw, 74px);
+}
+
+.magnify__text {
+  color: transparent;
+}
+
+.magnify__glyphs {
+  position: absolute;
+  inset: 0;
+}
+
+.magnify__glyph {
+  position: absolute;
+  top: 0;
+  transform-origin: 50% 74%;
+  will-change: transform, opacity;
+}
+
+.hello__greeting .magnify__row[data-size='hero'] {
+  margin-bottom: 0.22em;
+}
+
+.hello__invitation {
+  justify-content: flex-start;
+  padding-top: max(96px, 17vh);
+  gap: 0.1em;
+}
+
+.hello__caret {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: max(4px, 0.4vw);
+  background: currentColor;
+  animation: hello-caret 1.05s steps(1, end) infinite;
+  transition: opacity 0.3s var(--ease-out);
+}
+
+@keyframes hello-caret {
+  50% {
+    visibility: hidden;
+  }
+}
+
+.hello__hint {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--gutter) + 64px);
+  margin: 0;
+  text-align: center;
+  opacity: 0;
+}
